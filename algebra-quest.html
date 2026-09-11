@@ -1,0 +1,2808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algebra Tile Quest — MedhāVatika</title>
+  <meta name="description" content="Algebraic Expressions & Identities Quest by MedhāVatika — interactive stages, tile simulations, storybook flipbook, and master Grade 8 algebra.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================
+       MedhaVatika — Algebra Quest Design System & Stylesheet
+       Optimized with Enhanced Font & Visual Scale for Grade 8
+       ========================================================= */
+    :root {
+      /* Brand Theme Colors */
+      --mv-primary: #046bd2;
+      --mv-primary-hover: #0353a4;
+      --mv-gold: #f59e0b;
+      --mv-gold-dark: #d97706;
+      --mv-gold-light: rgba(245, 158, 11, 0.15);
+      --mv-gold-border: rgba(245, 158, 11, 0.35);
+      
+      /* Theme Accents */
+      --teal-accent: #10b981;
+      --teal-glow: #34d399;
+      --cyan-accent: #06b6d4;
+      --cyan-glow: #22d3ee;
+      --purple-accent: #8b5cf6;
+      --purple-glow: #a855f7;
+      --amber-glow: #fbbf24;
+      --coral-accent: #f43f5e;
+      --coral-soft: rgba(244, 63, 94, 0.15);
+
+      /* Dark Container Palette */
+      --bg-deep: #070913;
+      --bg-surface: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-alt: #162032;
+      --bg-overlay: rgba(15, 23, 42, 0.88);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(34, 211, 238, 0.25);
+
+      /* Typography & Text Palette */
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-dark: #0f172a;
+
+      --font-heading: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+      --font-body: 'Inter', 'Noto Sans Devanagari', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --radius-xl: 30px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.25);
+      --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.35);
+      --shadow-lg: 0 20px 40px -10px rgba(0,0,0,0.55);
+      --shadow-glow-cyan: 0 0 28px rgba(6, 182, 212, 0.4);
+      --shadow-glow-gold: 0 0 28px rgba(245, 158, 11, 0.4);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 18px; /* Enhanced base font size for grade 8 accessibility */
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    button {
+      font-family: var(--font-heading);
+      cursor: pointer;
+      border: none;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    img, svg {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1320px, 94%);
+      margin-inline: auto;
+    }
+
+    /* Ambient Background Scene */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      overflow: hidden;
+      background: 
+        radial-gradient(1000px 700px at 15% 10%, rgba(6, 182, 212, 0.14), transparent 60%),
+        radial-gradient(1100px 800px at 85% 25%, rgba(139, 92, 246, 0.12), transparent 60%),
+        radial-gradient(900px 600px at 50% 75%, rgba(245, 158, 11, 0.1), transparent 60%),
+        linear-gradient(180deg, #070913 0%, #0b1120 40%, #0f172a 100%);
+    }
+
+    #ambient-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Header Navbar — Exact MedhāVatika Section Outlines Architecture */
+    .mv-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(11, 17, 32, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s ease;
+      overflow: visible;
+    }
+
+    .mv-header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      gap: 12px;
+      width: min(1480px, 98%);
+      margin-inline: auto;
+      position: relative;
+    }
+
+    /* 1. Brand Section Outline Capsule */
+    .mv-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-full);
+      padding: 4px 12px 4px 5px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .mv-brand:hover {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .mv-brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #f59e0b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.4);
+      color: #ffffff;
+      font-size: 18px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .mv-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mv-brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .mv-brand-subtitle {
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: #94a3b8;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    /* 2. Nav Items Section Container Capsule */
+    .mv-nav {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      list-style: none;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-full);
+      padding: 4px 5px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+
+    .mv-nav li {
+      display: flex;
+      align-items: center;
+    }
+
+    .mv-nav-link {
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      padding: 4px 9px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .mv-nav-link:hover {
+      color: #ffffff;
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.45);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .mv-nav-link.active {
+      color: #ffffff;
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(6, 182, 212, 0.18));
+      border-color: rgba(16, 185, 129, 0.65);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
+    }
+
+    .mv-nav-badge {
+      font-size: 0.58rem;
+      font-weight: 700;
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--mv-gold);
+      border: 1px solid var(--mv-gold-border);
+      padding: 1px 4px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* 3. Actions Section Container Capsule */
+    .mv-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-full);
+      padding: 4px 6px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      flex-shrink: 0;
+    }
+
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-full);
+      padding: 4px 8px;
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      cursor: pointer;
+      gap: 4px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .lang-selector:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .lang-selector select {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      font-family: inherit;
+      font-size: 0.78rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .lang-selector select option {
+      background: #0f172a;
+      color: #f8fafc;
+    }
+
+    .btn-demo-call {
+      background: linear-gradient(135deg, #046bd2, #0284c7);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 14px rgba(4, 107, 210, 0.35);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .btn-demo-call:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 6px 20px rgba(4, 107, 210, 0.55);
+      background: linear-gradient(135deg, #0353a4, #0369a1);
+    }
+
+    .mv-menu-toggle {
+      display: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: var(--radius-sm);
+      padding: 5px 9px;
+      color: #ffffff;
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .mv-menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Mobile / Tablet Nav Drawer */
+    @media (max-width: 1340px) {
+      .mv-nav { display: none; }
+      .mv-nav.open {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 20px 28px;
+        border-bottom: 1px solid var(--border-subtle);
+        gap: 10px;
+        box-shadow: var(--shadow-lg);
+        border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      }
+      .mv-nav.open .mv-nav-link {
+        font-size: 0.95rem;
+        width: 100%;
+        padding: 10px 14px;
+      }
+      .mv-menu-toggle { display: grid; place-items: center; }
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 24px 0 36px;
+      position: relative;
+    }
+
+    .hero-wrapper {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-wrapper { grid-template-columns: 1fr; }
+    }
+
+    .hero-eyebrow-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(6, 182, 212, 0.14);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: var(--cyan-glow);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan-glow);
+      box-shadow: 0 0 12px var(--cyan-glow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.0rem, 3.4vw, 3.0rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--cyan-glow), var(--mv-gold), var(--purple-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      max-width: 56ch;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--mv-gold), var(--mv-gold-dark));
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-glow-gold);
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 35px rgba(245, 158, 11, 0.55);
+    }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .hero-stats-row {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 16px;
+    }
+
+    .hero-stat-item strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--mv-gold);
+      line-height: 1.2;
+    }
+
+    .hero-stat-item span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Hero Art SVG Card */
+    .hero-art-card {
+      background: linear-gradient(165deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.98));
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      box-shadow: var(--shadow-lg), var(--shadow-glow-cyan);
+      position: relative;
+    }
+
+    .hero-art-svg {
+      width: 100%;
+      height: 310px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-art-caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .hero-art-caption b { color: var(--cyan-glow); }
+
+    /* Section Component Base */
+    section {
+      padding: 90px 0;
+      position: relative;
+    }
+
+    .section-badge-center {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 54px;
+    }
+
+    .section-gold-pill {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: var(--radius-full);
+      background: var(--mv-gold-light);
+      border: 1px solid var(--mv-gold-border);
+      color: var(--mv-gold);
+      font-size: 0.88rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-badge-center h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-badge-center .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    /* Flipbook Reader Section — Exact Vercel Book & TOC Modal Architecture */
+    .flipbook-container {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .flipbook-toolbar {
+      background: #1e293b;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .flipbook-toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .fb-tool-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .fb-tool-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .fb-page-counter {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      font-family: var(--font-heading);
+    }
+
+    .fb-page-input {
+      width: 38px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      color: #ffffff;
+      text-align: center;
+      font-family: inherit;
+      font-size: 0.88rem;
+      padding: 4px 0;
+    }
+
+    /* Table of Contents Modal Dropdown */
+    .toc-modal {
+      display: none;
+      position: absolute;
+      top: 55px;
+      right: 18px;
+      width: 330px;
+      max-height: 380px;
+      overflow-y: auto;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 50;
+      padding: 16px;
+    }
+
+    .toc-modal.open {
+      display: block;
+    }
+
+    .toc-modal h5 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .toc-item {
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .toc-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--mv-gold);
+    }
+
+    .toc-item b {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Flipbook Stage & Pages */
+    .flipbook-stage {
+      padding: 30px 20px;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      position: relative;
+      user-select: none;
+    }
+
+    .flipbook-sheet-wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 880px;
+      min-height: 460px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: visible;
+      background: #ffffff;
+      color: #1e293b;
+      position: relative;
+      perspective: 2400px;
+      transform-style: preserve-3d;
+    }
+
+    /* Center Book Spine / Crease */
+    .flipbook-sheet-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 32px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, 
+        rgba(0, 0, 0, 0.15) 0%, 
+        rgba(0, 0, 0, 0.03) 30%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(0, 0, 0, 0.03) 70%, 
+        rgba(0, 0, 0, 0.15) 100%
+      );
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .fb-page {
+      flex: 1;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #fafaf9;
+      position: relative;
+      min-height: 460px;
+      box-sizing: border-box;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .fb-page.left {
+      border-right: 1px solid #e7e5e4;
+      background: linear-gradient(90deg, #f5f5f4 0%, #ffffff 92%, #e7e5e4 100%);
+      box-shadow: inset -16px 0 24px -14px rgba(0, 0, 0, 0.12);
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    .fb-page.right {
+      background: linear-gradient(270deg, #f5f5f4 0%, #ffffff 92%, #e7e5e4 100%);
+      box-shadow: inset 16px 0 24px -14px rgba(0, 0, 0, 0.12);
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .fb-page.left:hover {
+      background: linear-gradient(90deg, #f0ede9 0%, #ffffff 92%, #e7e5e4 100%);
+    }
+
+    .fb-page.right:hover {
+      background: linear-gradient(270deg, #f0ede9 0%, #ffffff 92%, #e7e5e4 100%);
+    }
+
+    /* Corner Page Turn Hints */
+    .fb-corner-hint {
+      position: absolute;
+      bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      opacity: 0.45;
+      transition: all 0.25s ease;
+      pointer-events: none;
+      font-family: var(--font-heading);
+    }
+
+    .fb-page.left .fb-corner-hint { left: 14px; }
+    .fb-page.right .fb-corner-hint { right: 14px; }
+
+    .fb-page:hover .fb-corner-hint {
+      opacity: 1;
+      color: var(--mv-primary);
+      transform: translateY(-2px);
+    }
+
+    /* Dynamic 3D Flipping Leaf */
+    .fb-flipping-leaf {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      z-index: 25;
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .fb-flipping-leaf.flip-forward {
+      right: 0;
+      transform-origin: left center;
+      animation: flipForwardAnim 0.62s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+    }
+
+    .fb-flipping-leaf.flip-backward {
+      left: 0;
+      transform-origin: right center;
+      animation: flipBackwardAnim 0.62s cubic-bezier(0.25, 1, 0.4, 1) forwards;
+    }
+
+    .fb-leaf-face {
+      position: absolute;
+      inset: 0;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      background: #ffffff;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    .fb-leaf-front {
+      z-index: 2;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    .fb-leaf-back {
+      transform: rotateY(180deg);
+      z-index: 1;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    .fb-leaf-shadow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 6;
+      background: linear-gradient(to right, rgba(0,0,0,0.18), transparent 40%);
+    }
+
+    @keyframes flipForwardAnim {
+      0% { transform: rotateY(0deg); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)); }
+      50% { filter: drop-shadow(-18px 20px 30px rgba(0,0,0,0.45)); }
+      100% { transform: rotateY(-180deg); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)); }
+    }
+
+    @keyframes flipBackwardAnim {
+      0% { transform: rotateY(0deg); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)); }
+      50% { filter: drop-shadow(18px 20px 30px rgba(0,0,0,0.45)); }
+      100% { transform: rotateY(180deg); filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15)); }
+    }
+
+    .fb-page-num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #78716c;
+    }
+
+    .fb-page-header {
+      border-bottom: 2px solid #e7e5e4;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+    }
+
+    .fb-page-header h4 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      color: #0f172a;
+    }
+
+    .fb-page-header span {
+      font-size: 0.75rem;
+      color: #046bd2;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .fb-page-body {
+      flex: 1;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #334155;
+    }
+
+    .fb-dialogue {
+      background: #eef2ff;
+      border-left: 3px solid #6366f1;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      margin: 10px 0;
+      font-style: italic;
+      color: #1e1b4b;
+    }
+
+    .fb-formula-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #166534;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .fb-cover-page {
+      background: linear-gradient(135deg, #070913 0%, #0f172a 100%) !important;
+      color: #ffffff !important;
+      text-align: center;
+      justify-content: center !important;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .fb-cover-page h3 {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: #fef08a;
+    }
+
+    .fb-cover-page p {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+
+    .page-nav-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .btn-page-nav {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--mv-primary);
+      color: #fff;
+      font-size: 1.3rem;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 14px rgba(4, 107, 210, 0.45);
+    }
+
+    .btn-page-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-page-nav:not(:disabled):hover {
+      background: var(--mv-primary-hover);
+      transform: scale(1.08);
+    }
+
+    .page-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .dot.active {
+      background: var(--mv-gold);
+      width: 24px;
+      border-radius: 5px;
+    }
+
+    /* Interactive Stage Grids */
+    .stage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .stage-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Theory Card */
+    .theory-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+
+    .theory-box h3 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .formula-banner {
+      font-family: var(--font-mono);
+      background: rgba(7, 9, 19, 0.8);
+      border: 1px solid var(--border-glow);
+      color: var(--amber-glow);
+      padding: 18px 24px;
+      border-radius: var(--radius-md);
+      font-size: 1.18rem;
+      margin: 18px 0;
+    }
+
+    .formula-banner small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 8px;
+      font-family: var(--font-body);
+    }
+
+    ul.facts-list {
+      list-style: none;
+      margin: 18px 0;
+    }
+
+    ul.facts-list li {
+      padding: 12px 0;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+    }
+
+    ul.facts-list li:first-child { border-top: none; }
+    ul.facts-list b { color: var(--cyan-glow); }
+
+    .exercise-box {
+      background: rgba(6, 182, 212, 0.1);
+      border-left: 5px solid var(--cyan-accent);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 22px 24px;
+      margin-top: 24px;
+      font-size: 1.05rem;
+    }
+
+    .exercise-tag {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--cyan-glow);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .exercise-sol {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      background: var(--bg-deep);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      margin: 12px 0;
+      color: var(--text-primary);
+    }
+
+    .mascot-tip-box {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-top: 24px;
+      padding: 18px;
+      background: rgba(245, 158, 11, 0.1);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .mascot-tip-box .icon { font-size: 2.2rem; line-height: 1; }
+    .mascot-tip-box b { color: var(--mv-gold); }
+
+    /* Interactive Simulation Lab Widgets */
+    .widget-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .widget-label {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--cyan-glow);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .widget-card h4 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+
+    .widget-card .subtext {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .control-group {
+      margin-bottom: 20px;
+    }
+
+    .control-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .control-group label .val {
+      font-family: var(--font-mono);
+      color: var(--cyan-glow);
+      font-size: 1.08rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--mv-gold);
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+    }
+
+    select.mv-select {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 0.98rem;
+    }
+
+    .readout-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .readout-item {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+    }
+
+    .readout-item .n {
+      font-family: var(--font-mono);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--cyan-glow);
+    }
+
+    .readout-item .l {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .expr-string-box {
+      font-family: var(--font-mono);
+      font-size: 1.18rem;
+      background: var(--bg-deep);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      margin: 16px 0;
+      color: var(--amber-glow);
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .badge-pill.yes {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--teal-glow);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-pill.no {
+      background: rgba(244, 63, 94, 0.2);
+      color: var(--coral-accent);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .chip-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .chip-btn {
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+    }
+
+    .chip-btn.active {
+      background: var(--mv-gold);
+      color: var(--text-dark);
+      border-color: var(--mv-gold);
+      font-weight: 700;
+    }
+
+    .btn-action-sm {
+      padding: 10px 20px;
+      font-size: 0.92rem;
+      border-radius: var(--radius-sm);
+      background: var(--mv-primary);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-action-sm.alt {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+    }
+
+    .btn-action-sm:hover {
+      opacity: 0.9;
+    }
+
+    /* Master Equation Banner Section */
+    .master-banner {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));
+      border: 1px solid var(--mv-gold-border);
+      border-radius: var(--radius-xl);
+      padding: 54px 36px;
+      text-align: center;
+      box-shadow: var(--shadow-glow-gold);
+    }
+
+    .master-banner h2 {
+      font-size: 2.1rem;
+      color: var(--text-primary);
+    }
+
+    .master-eq-grid {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+    .master-eq-card {
+      font-family: var(--font-mono);
+      font-size: 1.28rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      padding: 20px 28px;
+      border-radius: var(--radius-md);
+      color: var(--amber-glow);
+    }
+
+    .master-eq-card span {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-family: var(--font-body);
+    }
+
+    /* Applications Section */
+    .app-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    @media (max-width: 940px) {
+      .app-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    .app-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+    }
+
+    .app-card .ic {
+      font-size: 2.5rem;
+      margin-bottom: 18px;
+    }
+
+    .app-card h4 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .app-card p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .app-card ul {
+      padding-left: 20px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .app-card li { margin-bottom: 8px; }
+
+    /* Footer */
+    footer.mv-footer {
+      background: #04060c;
+      border-top: 1px solid var(--border-subtle);
+      padding: 72px 0 36px;
+      font-size: 0.95rem;
+    }
+
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 820px) {
+      .foot-grid { grid-template-columns: 1fr; }
+    }
+
+    .foot-brand-desc {
+      color: var(--text-muted);
+      margin-top: 14px;
+      max-width: 40ch;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    footer h5 {
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      margin-bottom: 18px;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer li {
+      margin-bottom: 12px;
+      color: var(--text-muted);
+    }
+
+    footer a:hover {
+      color: var(--cyan-glow);
+    }
+
+    .foot-bottom {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 28px;
+      bottom: 28px;
+      background: var(--mv-gold);
+      color: var(--text-dark);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-glow-gold);
+      font-weight: 800;
+      font-size: 1.3rem;
+      z-index: 900;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-4px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Dynamic Background -->
+  <div class="ambient-bg" aria-hidden="true"></div>
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- NAVBAR -->
+  <header class="mv-header">
+    <div class="container mv-header-container">
+      <a href="#hero" class="mv-brand">
+        <div class="mv-brand-logo">🌿</div>
+        <div class="mv-brand-text">
+          <span class="mv-brand-title" data-i18n="nav_brand_title">MedhāVatika</span>
+          <span class="mv-brand-subtitle" data-i18n="nav_brand_subtitle">A Garden of Intellect</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="mv-nav" id="mvNavMenu">
+          <li><a href="#flipbook" class="mv-nav-link active" data-i18n="nav_story">Medha's Story <span class="mv-nav-badge" data-i18n="badge_book">Book</span></a></li>
+          <li><a href="#ch1" class="mv-nav-link" data-i18n="nav_blocks">Building Blocks</a></li>
+          <li><a href="#ch2" class="mv-nav-link" data-i18n="nav_combine">Combine &amp; Simplify</a></li>
+          <li><a href="#ch3" class="mv-nav-link" data-i18n="nav_area">Area Model</a></li>
+          <li><a href="#ch4" class="mv-nav-link" data-i18n="nav_identities">Identities <span class="mv-nav-badge" data-i18n="badge_challenge">Challenge</span></a></li>
+          <li><a href="#ch5" class="mv-nav-link" data-i18n="nav_factors">Factor Lab <span class="mv-nav-badge" data-i18n="badge_lab">Lab</span></a></li>
+          <li><a href="#applications" class="mv-nav-link" data-i18n="nav_applications">Applications</a></li>
+        </ul>
+      </nav>
+
+      <div class="mv-header-actions">
+        <div class="lang-selector">
+          <span>🌐</span>
+          <select id="lang-select" aria-label="Select Language">
+            <option value="en" selected>English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+          </select>
+        </div>
+
+        <a href="tel:8007614867" class="btn-demo-call">
+          <span>📞</span>
+          <span data-i18n="btn_book_demo">Book A Demo</span>
+        </a>
+
+        <button class="mv-menu-toggle" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-wrapper">
+        <div class="hero-content">
+          <div class="hero-eyebrow-chip">
+            <span class="pulse-dot"></span>
+            <span data-i18n="hero_chip">MedhaLab™ · Algebra Interactive Quest</span>
+          </div>
+
+          <h1 class="hero-title" data-i18n="hero_title">
+            Algebraic Expressions &amp; Identities <br>
+            <span class="gradient-text">Adventure</span>
+          </h1>
+
+          <p class="hero-description" data-i18n="hero_desc">
+            Step into the <strong>Algebra Tile Workshop</strong>, where variables and constants snap together like building blocks! 
+            <em>Algebraic Expressions &amp; Identities</em> by <strong>MedhāVatika</strong> transforms Grade 8 algebra into an engaging, hands-on quest of tiles, area models, and identity puzzles.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#flipbook" class="btn-hero-primary">
+              <span data-i18n="hero_btn_story">📖 Open Interactive Storybook</span>
+              <span>→</span>
+            </a>
+            <a href="#ch1" class="btn-hero-secondary">
+              <span data-i18n="hero_btn_lab">🧮 Explore Tile Simulations</span>
+            </a>
+          </div>
+
+          <div class="hero-stats-row">
+            <div class="hero-stat-item">
+              <strong>5</strong>
+              <span data-i18n="stat_stages">Interactive Stages</span>
+            </div>
+            <div class="hero-stat-item">
+              <strong>5</strong>
+              <span data-i18n="stat_sims">Live Tile Simulations</span>
+            </div>
+            <div class="hero-stat-item">
+              <strong>100%</strong>
+              <span data-i18n="stat_mastery">Hands-On Mastery</span>
+            </div>
+            <div class="hero-stat-item">
+              <strong data-i18n="stat_grade">Grade 8</strong>
+              <span data-i18n="stat_curriculum">Curriculum Aligned</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-art-card">
+          <img class="hero-art-svg" src="hero_art.jpg" alt="MedhāVatika Algebra Tile Quest Workshop — HD Illustration">
+          <div class="hero-art-caption">
+            <span data-i18n="hero_art_zone">Exploration Zone: <b>Tile Bench &amp; Identity Squares</b></span>
+            <span data-i18n="hero_art_status">Status: <b>Expression Active ⚡</b></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLIPBOOK STORYBOOK VIEWER -->
+    <section class="flipbook-section" id="flipbook">
+      <div class="container">
+        <div class="section-badge-center">
+          <span class="section-gold-pill" data-i18n="fb_pill">✨ Interactive Flipbook Reader</span>
+          <h2 data-i18n="fb_heading">Medha's Algebra Adventure</h2>
+          <p class="subtitle" data-i18n="fb_subtitle">Turn through 13 illustrated storybook pages with Medha and her wise Owl companion as they unravel the mystery of Grade 8 algebra expressions and identities.</p>
+        </div>
+
+        <div class="flipbook-container" id="flipbook-container">
+          <!-- Flipbook Toolbar -->
+          <div class="flipbook-toolbar">
+            <div class="flipbook-toolbar-group">
+              <button class="fb-tool-btn" id="fb-first" title="First Page">|◀</button>
+              <button class="fb-tool-btn" id="fb-prev" title="Previous Page">◀</button>
+              <div class="fb-page-counter">
+                <span data-i18n="fb_page_label">Page</span>
+                <input type="number" id="fb-page-num" class="fb-page-input" value="1" min="1" max="13">
+                <span data-i18n="fb_of_pages">of 13</span>
+              </div>
+              <button class="fb-tool-btn" id="fb-next" title="Next Page">▶</button>
+              <button class="fb-tool-btn" id="fb-last" title="Last Page">▶|</button>
+            </div>
+
+            <div class="flipbook-toolbar-group">
+              <button class="fb-tool-btn" id="fb-toc-btn" title="Table of Contents">☰</button>
+              <button class="fb-tool-btn" id="fb-zoom-in" title="Zoom In">🔍+</button>
+              <button class="fb-tool-btn" id="fb-zoom-out" title="Zoom Out">🔍-</button>
+              <button class="fb-tool-btn" id="fb-fullscreen" title="Toggle Fullscreen">⛶</button>
+            </div>
+          </div>
+
+          <!-- Table of Contents Modal Dropdown -->
+          <div class="toc-modal" id="toc-modal">
+            <h5 data-i18n="fb_toc_title">📑 Table of Contents</h5>
+            <ul class="toc-list" id="toc-list-items">
+              <li class="toc-item" data-page="1"><span data-i18n="toc_1">Page 1: Cover &amp; Title</span> <b data-i18n="toc_b1">Cover</b></li>
+              <li class="toc-item" data-page="2"><span data-i18n="toc_2">Page 2: Prologue — The Unknown x</span> <b data-i18n="toc_b2">Ch. 0</b></li>
+              <li class="toc-item" data-page="3"><span data-i18n="toc_3">Page 3: What Is an Expression?</span> <b data-i18n="toc_b3">Ch. 1</b></li>
+              <li class="toc-item" data-page="4"><span data-i18n="toc_4">Page 4: Terms, Factors &amp; Coeffs</span> <b data-i18n="toc_b4">Ch. 1</b></li>
+              <li class="toc-item" data-page="5"><span data-i18n="toc_5">Page 5: Like and Unlike Terms</span> <b data-i18n="toc_b5">Ch. 1</b></li>
+              <li class="toc-item" data-page="6"><span data-i18n="toc_6">Page 6: Monomial to Polynomial</span> <b data-i18n="toc_b6">Ch. 1</b></li>
+              <li class="toc-item" data-page="7"><span data-i18n="toc_7">Page 7: Combine &amp; Simplify</span> <b data-i18n="toc_b7">Ch. 2</b></li>
+              <li class="toc-item" data-page="8"><span data-i18n="toc_8">Page 8: Area Model Multiplication</span> <b data-i18n="toc_b8">Ch. 3</b></li>
+              <li class="toc-item" data-page="9"><span data-i18n="toc_9">Page 9: Unlocking (a+b)²</span> <b data-i18n="toc_b9">Ch. 4</b></li>
+              <li class="toc-item" data-page="10"><span data-i18n="toc_10">Page 10: Unlocking (a−b)² &amp; a²−b²</span> <b data-i18n="toc_b10">Ch. 4</b></li>
+              <li class="toc-item" data-page="11"><span data-i18n="toc_11">Page 11: Factor Bottlenecks</span> <b data-i18n="toc_b11">Ch. 5</b></li>
+              <li class="toc-item" data-page="12"><span data-i18n="toc_12">Page 12: Real World Algebra</span> <b data-i18n="toc_b12">Apps</b></li>
+              <li class="toc-item" data-page="13"><span data-i18n="toc_13">Page 13: Quest Mastery Certificate</span> <b data-i18n="toc_b13">End</b></li>
+            </ul>
+          </div>
+
+          <!-- Dual-Page Book Stage -->
+          <div class="flipbook-stage">
+            <div class="flipbook-sheet-wrapper" id="flipbook-sheet">
+              <div class="fb-page left" id="fb-page-left"></div>
+              <div class="fb-page right" id="fb-page-right"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 1 -->
+    <section id="ch1">
+      <div class="container">
+        <div class="section-badge-center">
+          <span class="section-gold-pill" data-i18n="ch1_pill">Stage 1 · Terms, Factors &amp; Classification</span>
+          <h2 data-i18n="ch1_heading">Building Blocks of an Expression</h2>
+          <p class="subtitle" data-i18n="ch1_subtitle">Every algebraic expression is made of terms, joined by + or −. Each term is built from a coefficient and variable factors. Knowing the parts is the first step to combining them correctly.</p>
+        </div>
+
+        <div class="stage-grid">
+          <div class="theory-box">
+            <h3 data-i18n="ch1_t1_title">Terms, Coefficients &amp; Like Terms</h3>
+            <div class="formula-banner">
+              Term = Coefficient × Variable(s)<sup>power</sup>
+              <small>e.g. in 7x²y, the coefficient is 7 and the factors are x², y</small>
+            </div>
+            <ul class="facts-list">
+              <li><b>Like terms</b> have the exact same variables raised to the exact same powers — only their coefficients may differ (e.g. 4xy and −9xy).</li>
+              <li><b>Unlike terms</b> differ in variable or power (e.g. 4xy and 4x²y cannot be combined).</li>
+              <li>An expression is named by its number of terms: <b>monomial</b> (1), <b>binomial</b> (2), <b>trinomial</b> (3), or <b>polynomial</b> (4+).</li>
+            </ul>
+            <div class="exercise-box">
+              <span class="exercise-tag">Solved Exercise 1.1 — Identify the Parts</span>
+              <b>Problem:</b> List the terms and coefficients in 7x²y − 3xy + 5.
+              <div class="exercise-sol">Terms: 7x²y, −3xy, 5<br>Coefficients: 7, −3, 5 (constant term)</div>
+              Result: this is a <b>trinomial</b> — three unlike terms.
+            </div>
+            <div class="mascot-tip-box">
+              <span class="icon">🦉</span>
+              <span><b>Owl's Lab Tip:</b> "Check the variable letters AND their exponents — 3xy and 3x²y look like cousins, but they can never be added together!"</span>
+            </div>
+          </div>
+
+          <div class="widget-card">
+            <div class="widget-label">Live Tile Bench</div>
+            <h4>Like Terms &amp; Classification Lab</h4>
+            <p class="subtext">Build two terms and see if the workshop lets them merge — then explore how term-count changes an expression's name.</p>
+            
+            <div class="readout-grid">
+              <div>
+                <div class="control-group">
+                  <label>Term A coefficient <span class="val" id="s1aCoefVal">7</span></label>
+                  <input type="range" id="s1aCoef" min="-9" max="9" value="7">
+                </div>
+                <div class="control-group">
+                  <label>Term A variable</label>
+                  <select id="s1aVar" class="mv-select">
+                    <option value="">none (constant)</option>
+                    <option value="x" selected>x</option>
+                    <option value="y">y</option>
+                    <option value="xy">xy</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Term A exponent <span class="val" id="s1aExpVal">2</span></label>
+                  <input type="range" id="s1aExp" min="1" max="3" value="2">
+                </div>
+              </div>
+              <div>
+                <div class="control-group">
+                  <label>Term B coefficient <span class="val" id="s1bCoefVal">-3</span></label>
+                  <input type="range" id="s1bCoef" min="-9" max="9" value="-3">
+                </div>
+                <div class="control-group">
+                  <label>Term B variable</label>
+                  <select id="s1bVar" class="mv-select">
+                    <option value="">none (constant)</option>
+                    <option value="x" selected>x</option>
+                    <option value="y">y</option>
+                    <option value="xy">xy</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Term B exponent <span class="val" id="s1bExpVal">2</span></label>
+                  <input type="range" id="s1bExp" min="1" max="3" value="2">
+                </div>
+              </div>
+            </div>
+
+            <div class="expr-string-box">Term A = <span id="s1aOut">7x²</span> &nbsp;·&nbsp; Term B = <span id="s1bOut">-3x²</span></div>
+            <p style="margin: 14px 0; font-size: 1.05rem;">Like terms? <span class="badge-pill" id="s1badge">Yes</span> — <span id="s1combined" style="font-family:var(--font-mono); font-weight:bold;">Combined: 4x²</span></p>
+
+            <hr style="border:none; border-top:1px solid var(--border-subtle); margin: 24px 0;">
+
+            <div class="control-group">
+              <label>Number of terms in expression <span class="val" id="s1nVal">3</span></label>
+              <input type="range" id="s1n" min="1" max="4" value="3">
+            </div>
+            <div class="readout-grid">
+              <div class="readout-item">
+                <div class="n" id="s1className">Trinomial</div>
+                <div class="l">Classification</div>
+              </div>
+              <div class="readout-item">
+                <div class="n" id="s1example" style="font-size:1.05rem">2x² − 5x + 9</div>
+                <div class="l">Example expression</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 2 -->
+    <section id="ch2">
+      <div class="container">
+        <div class="section-badge-center">
+          <span class="section-gold-pill" data-i18n="ch2_pill">Stage 2 · Addition &amp; Subtraction</span>
+          <h2 data-i18n="ch2_heading">Combining Expressions Safely</h2>
+          <p class="subtitle" data-i18n="ch2_subtitle">Adding or subtracting expressions is really just sorting tiles into matching piles — you can only merge terms that are alike, then add or subtract their coefficients.</p>
+        </div>
+
+        <div class="stage-grid">
+          <div class="theory-box">
+            <h3>The Combine Rule</h3>
+            <div class="formula-banner">
+              (ax + by) ± (cx + dy) = (a ± c)x + (b ± d)y
+              <small>Group like terms first, then combine coefficients — variable part never changes</small>
+            </div>
+            <ul class="facts-list">
+              <li>Rewrite subtraction as "add the opposite" — flip every sign inside the subtracted bracket.</li>
+              <li>Only coefficients change when combining; the variable and power stay exactly as they were.</li>
+              <li>An expression is fully <b>simplified</b> once no like terms remain to be combined.</li>
+            </ul>
+            <div class="exercise-box">
+              <span class="exercise-tag">Solved Exercise 2.1 — Subtract Two Expressions</span>
+              <b>Problem:</b> Simplify (5x + 3y) − (2x − 4y).
+              <div class="exercise-sol">= 5x + 3y − 2x + 4y<br>= (5−2)x + (3+4)y<br>= 3x + 7y</div>
+              Result: subtracting flips the sign of every term inside the second bracket first.
+            </div>
+            <div class="mascot-tip-box">
+              <span class="icon">👧</span>
+              <span><b>Medhā's Observation:</b> "Subtracting a bracket is like handing back tiles you borrowed — every tile inside changes to its opposite sign first!"</span>
+            </div>
+          </div>
+
+          <div class="widget-card">
+            <div class="widget-label">Live Tile Bench</div>
+            <h4>Expression Combiner</h4>
+            <p class="subtext">Set up two expressions in x and y, choose an operation, and watch the combined result build itself.</p>
+
+            <div class="readout-grid">
+              <div>
+                <div class="control-group"><label>Expr 1 — x coeff. (a) <span class="val" id="s2aVal">5</span></label><input type="range" id="s2a" min="-9" max="9" value="5"></div>
+                <div class="control-group"><label>Expr 1 — y coeff. (b) <span class="val" id="s2bVal">3</span></label><input type="range" id="s2b" min="-9" max="9" value="3"></div>
+              </div>
+              <div>
+                <div class="control-group"><label>Expr 2 — x coeff. (c) <span class="val" id="s2cVal">2</span></label><input type="range" id="s2c" min="-9" max="9" value="2"></div>
+                <div class="control-group"><label>Expr 2 — y coeff. (d) <span class="val" id="s2dVal">-4</span></label><input type="range" id="s2d" min="-9" max="9" value="-4"></div>
+              </div>
+            </div>
+
+            <div class="chip-group">
+              <button class="chip-btn active" data-op="+" onclick="s2SetOp('+',this)">+ Add</button>
+              <button class="chip-btn" data-op="-" onclick="s2SetOp('-',this)">− Subtract</button>
+            </div>
+
+            <div class="expr-string-box">(<span id="s2expr1">5x + 3y</span>) <span id="s2opSym">+</span> (<span id="s2expr2">2x - 4y</span>) = <b id="s2result">7x - y</b></div>
+
+            <div style="display:flex; gap:36px; align-items:flex-end; height:130px; margin-top:24px; justify-content:center;">
+              <div style="text-align:center;"><div id="s2barX" style="width:60px; border-radius:10px 10px 0 0; margin:0 auto;"></div><span style="font-size:.9rem; font-weight:600; color:var(--text-muted)">x-tile total</span></div>
+              <div style="text-align:center;"><div id="s2barY" style="width:60px; border-radius:10px 10px 0 0; margin:0 auto;"></div><span style="font-size:.9rem; font-weight:600; color:var(--text-muted)">y-tile total</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 3 -->
+    <section id="ch3">
+      <div class="container">
+        <div class="section-badge-center">
+          <span class="section-gold-pill" data-i18n="ch3_pill">Stage 3 · Multiplication &amp; Area Model</span>
+          <h2 data-i18n="ch3_heading">Multiplying Expressions: The Array Model</h2>
+          <p class="subtitle" data-i18n="ch3_subtitle">Multiplying two sums is the same as finding the area of a rectangle split into four smaller pieces — each piece is one pairwise product, and the total area is their sum.</p>
+        </div>
+
+        <div class="stage-grid">
+          <div class="theory-box">
+            <h3>The Distributive Law, Visually</h3>
+            <div class="formula-banner">
+              (p + q)(r + s) = pr + ps + qr + qs
+              <small>Every term in the first bracket multiplies every term in the second — four products, four rectangles</small>
+            </div>
+            <ul class="facts-list">
+              <li><b>Monomial × Binomial:</b> distribute once, e.g. 3x(x + 4) = 3x² + 12x.</li>
+              <li><b>Binomial × Binomial:</b> distribute twice — the area model keeps all four products organised.</li>
+              <li>The total area of the big rectangle always equals the sum of its four smaller regions.</li>
+            </ul>
+            <div class="exercise-box">
+              <span class="exercise-tag">Solved Exercise 3.1 — Expand a Binomial Product</span>
+              <b>Problem:</b> Expand (x + 3)(x + 5).
+              <div class="exercise-sol">= x·x + x·5 + 3·x + 3·5<br>= x² + 5x + 3x + 15<br>= x² + 8x + 15</div>
+              Result: middle terms 5x and 3x combine into 8x.
+            </div>
+            <div class="mascot-tip-box">
+              <span class="icon">🦉</span>
+              <span><b>Owl's Wisdom:</b> "Four rectangles, four products — lose track of one and your area model won't tile up perfectly!"</span>
+            </div>
+          </div>
+
+          <div class="widget-card">
+            <div class="widget-label">Live Area Model</div>
+            <h4>Rectangle Array Multiplier</h4>
+            <p class="subtext">Split the top and side of a rectangle into two segments each, then watch all four partial areas appear.</p>
+
+            <div class="readout-grid">
+              <div class="control-group"><label>Top segment p <span class="val" id="s3pVal">4</span></label><input type="range" id="s3p" min="1" max="12" value="4"></div>
+              <div class="control-group"><label>Top segment q <span class="val" id="s3qVal">3</span></label><input type="range" id="s3q" min="1" max="12" value="3"></div>
+              <div class="control-group"><label>Side segment r <span class="val" id="s3rVal">5</span></label><input type="range" id="s3r" min="1" max="12" value="5"></div>
+              <div class="control-group"><label>Side segment s <span class="val" id="s3sVal">2</span></label><input type="range" id="s3s" min="1" max="12" value="2"></div>
+            </div>
+
+            <svg id="s3svg" viewBox="0 0 320 240" style="width:100%; height:auto; background:var(--bg-deep); border-radius:var(--radius-md); border:1px solid var(--border-subtle);"></svg>
+            <div class="expr-string-box" id="s3formula" style="margin-top:16px;"></div>
+
+            <div class="btn-row">
+              <button class="btn-action-sm" onclick="s3Random()">🎲 Randomize</button>
+              <button class="btn-action-sm alt" onclick="s3Reset()">↺ Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 4 -->
+    <section id="ch4">
+      <div class="container">
+        <div class="section-badge-center">
+          <span class="section-gold-pill" data-i18n="ch4_pill">Stage 4 · Standard Identities</span>
+          <h2 data-i18n="ch4_heading">Unlocking the Three Master Identities</h2>
+          <p class="subtitle" data-i18n="ch4_subtitle">Some products appear so often that mathematicians memorised their expansions as identities — true for every value of a and b. Seeing them as squares makes them impossible to forget.</p>
+        </div>
+
+        <div class="stage-grid">
+          <div class="theory-box">
+            <h3>Geometric Proof by Squares</h3>
+            <div class="formula-banner">
+              (a+b)² = a² + 2ab + b²
+              <small>A square of side (a+b) splits into an a² square, a b² square, and two ab rectangles</small>
+            </div>
+            <ul class="facts-list">
+              <li><b>Identity I:</b> (a+b)² = a² + 2ab + b² — sum square.</li>
+              <li><b>Identity II:</b> (a−b)² = a² − 2ab + b² — difference square.</li>
+              <li><b>Identity III:</b> (a+b)(a−b) = a² − b² — difference of squares.</li>
+            </ul>
+            <div class="exercise-box">
+              <span class="exercise-tag">Solved Exercise 4.1 — Square a Number Instantly</span>
+              <b>Problem:</b> Find 105² using an identity.
+              <div class="exercise-sol">105² = (100 + 5)²<br>= 100² + 2(100)(5) + 5²<br>= 10000 + 1000 + 25 = <b>11025</b></div>
+              Result: no long multiplication needed!
+            </div>
+            <div class="mascot-tip-box">
+              <span class="icon">👧</span>
+              <span><b>Medhā's Discovery:</b> "Once you've seen the square split into four pieces, you'll never forget where that '2ab' comes from — it's the two matching rectangles!"</span>
+            </div>
+          </div>
+
+          <div class="widget-card">
+            <div class="widget-label">Identity Match Challenge</div>
+            <h4>Tile-Square Target Lab</h4>
+            <p class="subtext">Pick an identity, then tune a and b until your square's total area matches the target.</p>
+
+            <div class="chip-group">
+              <button class="chip-btn active" data-mode="sum" onclick="s4SetMode('sum',this)">Target: (a+b)²</button>
+              <button class="chip-btn" data-mode="diff" onclick="s4SetMode('diff',this)">Target: (a−b)²</button>
+              <button class="chip-btn" data-mode="diffsq" onclick="s4SetMode('diffsq',this)">Target: a²−b²</button>
+            </div>
+
+            <div class="control-group"><label>a <span class="val" id="s4aVal">5</span></label><input type="range" id="s4a" min="1" max="10" value="5"></div>
+            <div class="control-group"><label>b <span class="val" id="s4bVal">3</span></label><input type="range" id="s4b" min="1" max="10" value="3"></div>
+
+            <svg id="s4svg" viewBox="0 0 280 200" style="width:100%; max-width:340px; height:auto; margin:14px auto; display:block; background:rgba(0,0,0,0.25); border-radius:var(--radius-md);"></svg>
+
+            <div class="readout-grid">
+              <div class="readout-item"><div class="n" id="s4target">64</div><div class="l">Target value</div></div>
+              <div class="readout-item"><div class="n" id="s4current">64</div><div class="l">Your current value</div></div>
+              <div class="readout-item"><div class="n" id="s4error">0</div><div class="l">Error |target − yours|</div></div>
+              <div class="readout-item"><div class="n" id="s4status">⭐ Perfect Match!</div><div class="l">Status</div></div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-action-sm" onclick="s4Random()">🎲 Random Challenge</button>
+              <button class="btn-action-sm alt" onclick="s4Ideal()">↺ Reset Ideal</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASTER EQUATION BANNER -->
+    <section>
+      <div class="container">
+        <div class="master-banner">
+          <span class="section-gold-pill">🔺 The Master Identities of Algebra 🔺</span>
+          <h2 style="font-family:var(--font-heading); margin-top:12px;">Three shortcuts, memorised for life</h2>
+          <div class="master-eq-grid">
+            <div class="master-eq-card">(a+b)² = a² + 2ab + b²<span>Sum square</span></div>
+            <div class="master-eq-card">(a−b)² = a² − 2ab + b²<span>Difference square</span></div>
+            <div class="master-eq-card">(a+b)(a−b) = a² − b²<span>Difference of squares</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STAGE 5 -->
+    <section id="ch5">
+      <div class="container">
+        <div class="section-badge-center">
+          <span class="section-gold-pill" data-i18n="ch5_pill">Stage 5 · Factorisation &amp; Limiting Conditions</span>
+          <h2 data-i18n="ch5_heading">Undoing Multiplication: Factor Bottlenecks</h2>
+          <p class="subtitle" data-i18n="ch5_subtitle">Factorising x² + bx + c means finding two numbers that satisfy two conditions at once — their sum and their product. Just like a process can only run as fast as its weakest factor, a factorisation only "works" once both conditions are met together.</p>
+        </div>
+
+        <div class="stage-grid">
+          <div class="theory-box">
+            <h3>Two Conditions, One Answer</h3>
+            <div class="formula-banner">
+              x² + (m+n)x + mn = (x + m)(x + n)
+              <small>Both m+n = b AND m·n = c must hold — matching only one condition isn't enough</small>
+            </div>
+            <ul class="facts-list">
+              <li>List factor pairs of constant term c, then test which pair adds up to middle coefficient b.</li>
+              <li>Getting product right but sum wrong means factorisation is still incomplete.</li>
+              <li>Once both conditions match, the trinomial and brackets describe the exact same expression.</li>
+            </ul>
+            <div class="exercise-box">
+              <span class="exercise-tag">Solved Exercise 5.1 — Factorise by Testing Pairs</span>
+              <b>Problem:</b> Factorise x² + 7x + 12.
+              <div class="exercise-sol">Factor pairs of 12: (1,12) (2,6) (3,4)<br>Check sums: 13, 8, <b>7 ✓</b><br>So x² + 7x + 12 = (x + 3)(x + 4)</div>
+              Result: pair (3, 4) satisfies both product and sum together.
+            </div>
+            <div class="mascot-tip-box">
+              <span class="icon">🦉</span>
+              <span><b>Owl's Diagnostic:</b> "A guess that multiplies correctly but adds up wrong isn't a factorisation yet — you must fix the weaker condition first!"</span>
+            </div>
+          </div>
+
+          <div class="widget-card">
+            <div class="widget-label">Live Factor Bench</div>
+            <h4>Factor Bottleneck Lab</h4>
+            <p class="subtext">Guess two factors m and n. Both sum-match and product-match scores must hit 100% together.</p>
+
+            <div class="expr-string-box">Target trinomial: x² + <span id="s5bTarget">7</span>x + <span id="s5cTarget">12</span></div>
+
+            <div class="control-group"><label>Guess factor m <span class="val" id="s5mVal">2</span></label><input type="range" id="s5m" min="-12" max="12" value="2"></div>
+            <div class="control-group"><label>Guess factor n <span class="val" id="s5nVal">2</span></label><input type="range" id="s5n" min="-12" max="12" value="2"></div>
+
+            <div class="expr-string-box">(x + <span id="s5mOut">2</span>)(x + <span id="s5nOut">2</span>) = x² + <span id="s5sumOut">4</span>x + <span id="s5prodOut">4</span></div>
+
+            <div class="readout-grid">
+              <div class="readout-item"><div class="n" id="s5sumMatch">0%</div><div class="l">Sum match</div></div>
+              <div class="readout-item"><div class="n" id="s5prodMatch">0%</div><div class="l">Product match</div></div>
+              <div class="readout-item"><div class="n" id="s5overall">0%</div><div class="l">Overall factorisation rate</div></div>
+              <div class="readout-item"><div class="n" id="s5bottleneck">Sum</div><div class="l">Current bottleneck</div></div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-action-sm" onclick="s5Random()">🎲 New Trinomial</button>
+              <button class="btn-action-sm alt" onclick="s5Reset()">↺ Reset Guess</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLICATIONS -->
+    <section id="applications">
+      <div class="container">
+        <div class="section-badge-center">
+          <span class="section-gold-pill" data-i18n="apps_pill">🌍 Real-World Skill Impact</span>
+          <h2 data-i18n="apps_heading">Algebra Beyond the Classroom</h2>
+          <p class="subtitle" data-i18n="apps_subtitle">From writing efficient code to pricing a renovation to splitting a bill in your head, expressions and identities are quiet workhorses behind everyday problem-solving.</p>
+        </div>
+
+        <div class="app-cards-grid">
+          <div class="app-card">
+            <div class="ic">💻</div>
+            <h4>Computer Science &amp; Algorithms</h4>
+            <p>Simplifying expressions is how programmers reason about performance and correctness.</p>
+            <ul>
+              <li>Simplifying runtime formulas before estimating algorithm speed</li>
+              <li>Modular arithmetic identities used in encryption</li>
+              <li>Polynomial expressions driving game-physics engines</li>
+              <li>Hash functions built from combined algebraic terms</li>
+            </ul>
+          </div>
+
+          <div class="app-card">
+            <div class="ic">🏗️</div>
+            <h4>Engineering &amp; Architecture</h4>
+            <p>Area models scale up directly into real construction planning.</p>
+            <ul>
+              <li>Estimating flooring or tiling area using expanded expressions</li>
+              <li>Structural load formulas written as algebraic expressions</li>
+              <li>Material cost models built from binomial products</li>
+              <li>Quick identity-based checks during on-site calculations</li>
+            </ul>
+          </div>
+
+          <div class="app-card">
+            <div class="ic">💰</div>
+            <h4>Finance &amp; Everyday Life</h4>
+            <p>Identities turn intimidating multiplications into mental math party tricks.</p>
+            <ul>
+              <li>Multiplying prices near round numbers using a²−b²</li>
+              <li>Budgeting formulas that combine like terms automatically</li>
+              <li>Compound interest expressions built from repeated multiplication</li>
+              <li>Splitting bills accurately using simplified expressions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mv-footer">
+    <div class="container">
+      <div class="foot-grid">
+        <div>
+          <div class="mv-brand">
+            <div class="mv-brand-logo">🌿</div>
+            <div class="mv-brand-text">
+              <span class="mv-brand-title">MedhāVatika</span>
+              <span class="mv-brand-subtitle">A Garden of Intellect</span>
+            </div>
+          </div>
+          <p class="foot-brand-desc">MedhāVatika transforms foundational STEM learning through storytelling, gamified simulations, interactive quests, and rigorous curriculum mastery.</p>
+        </div>
+        <div>
+          <h5>Interactive Quests</h5>
+          <ul>
+            <li><a href="#hero">Algebra Tile Quest</a></li>
+            <li><a href="https://medhavatika-photosynthesis.vercel.app/" target="_blank">Photosynthesis Adventure</a></li>
+            <li><a href="#">Trigonometry Quest</a></li>
+            <li><a href="#">MedhaLab™ Mathematics</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Contact MedhaVatika</h5>
+          <ul>
+            <li>🏢 Medhavatika Edlabs Pvt. Ltd., Pune, Maharashtra, India</li>
+            <li>📞 +91 8007614867</li>
+            <li>✉️ contact@medhavatika.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>Copyright © MedhāVatika Edlabs Pvt. Ltd. All rights reserved.</span>
+        <span>Designed with 💜 for curious young mathematicians</span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#hero" class="back-to-top" aria-label="Back to Top">↑</a>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    /* i18n Translation Dictionary */
+    const i18nData = {
+      en: {
+        nav_brand_title: "MedhāVatika",
+        nav_brand_subtitle: "A Garden of Intellect",
+        nav_home: "Home",
+        nav_story: "Medha's Story",
+        nav_blocks: "Building Blocks",
+        nav_combine: "Combine & Simplify",
+        nav_area: "Area Model",
+        nav_identities: "Identities",
+        nav_factors: "Factor Lab",
+        nav_applications: "Applications",
+        badge_book: "Book",
+        badge_challenge: "Challenge",
+        badge_lab: "Lab",
+        btn_book_demo: "Book A Demo",
+        hero_chip: "MedhaLab™ · Algebra Interactive Quest",
+        hero_title: 'Algebraic Expressions & Identities <br><span class="gradient-text">Adventure</span>',
+        hero_desc: 'Step into the <strong>Algebra Tile Workshop</strong>, where variables and constants snap together like building blocks! <em>Algebraic Expressions & Identities</em> by <strong>MedhāVatika</strong> transforms Grade 8 algebra into an engaging, hands-on quest of tiles, area models, and identity puzzles.',
+        hero_btn_story: "📖 Open Interactive Storybook",
+        hero_btn_lab: "🧮 Explore Tile Simulations",
+        stat_stages: "Interactive Stages",
+        stat_sims: "Live Tile Simulations",
+        stat_mastery: "Hands-On Mastery",
+        stat_grade: "Grade 8",
+        stat_curriculum: "Curriculum Aligned",
+        hero_art_zone: "Exploration Zone: <b>Tile Bench & Identity Squares</b>",
+        hero_art_status: "Status: <b>Expression Active ⚡</b>",
+        fb_pill: "✨ Interactive Flipbook Reader",
+        fb_heading: "Medha's Algebra Adventure",
+        fb_subtitle: "Turn through 13 illustrated storybook pages with Medha and her wise Owl companion as they unravel the mystery of Grade 8 algebra expressions and identities."
+      },
+      hi: {
+        nav_brand_title: "मेधावाटिका",
+        nav_brand_subtitle: "ज्ञान का उपवन",
+        nav_home: "मुख्य पृष्ठ",
+        nav_story: "मेधा की कहानी",
+        nav_blocks: "मूल घटक",
+        nav_combine: "जोड़ना और सरल करना",
+        nav_area: "क्षेत्रफल मॉडल",
+        nav_identities: "सर्वसमिकाएँ",
+        nav_factors: "गुणनखंड लैब",
+        nav_applications: "व्यावहारिक अनुप्रयोग",
+        badge_book: "पुस्तक",
+        badge_challenge: "चुनौती",
+        badge_lab: "प्रयोगशाला",
+        btn_book_demo: "डेमो बुक करें",
+        hero_chip: "मेधालैब™ · बीजगणित इंटरैक्टिव खोज",
+        hero_title: 'बीजगणितीय व्यंजक और सर्वसमिकाएँ <br><span class="gradient-text">रोमांचक यात्रा</span>',
+        hero_desc: '<strong>अलजेब्रा टाइल कार्यशाला</strong> में कदम रखें, जहाँ चर और अचर बिल्डिंग ब्लॉक्स की तरह जुड़ते हैं! <strong>मेधावाटिका</strong> का यह मॉड्यूल कक्षा 8 के बीजगणित को टाइल्स और क्षेत्रफल मॉडल की खोज में बदल देता है।',
+        hero_btn_story: "📖 स्टोरीबुक खोलें",
+        hero_btn_lab: "🧮 टाइल सिमुलेशन देखें",
+        stat_stages: "इंटरैक्टिव चरण",
+        stat_sims: "लाइव टाइल सिमुलेशन",
+        stat_mastery: "व्यावहारिक दक्षता",
+        stat_grade: "कक्षा 8",
+        stat_curriculum: "पाठ्यक्रम आधारित",
+        hero_art_zone: "अन्वेषण क्षेत्र: <b>टाइल बेंच और सर्वसमिका वर्ग</b>",
+        hero_art_status: "स्थिति: <b>व्यंजक सक्रिय ⚡</b>",
+        fb_pill: "✨ इंटरैक्टिव फ्लिपबुक रीडर",
+        fb_heading: "मेधा की अलजेब्रा यात्रा",
+        fb_subtitle: "मेधा और उल्लू मित्र के साथ 13 सचित्र पन्नों को पलटें और बीजगणितीय व्यंजकों के रहस्यों को समझें।"
+      }
+    };
+
+    /* Language Switcher Listener */
+    document.getElementById('lang-select').addEventListener('change', (e) => {
+      const lang = e.target.value;
+      const dict = i18nData[lang] || i18nData.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+    });
+
+    /* Mobile Nav Toggle */
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mvNavMenu').classList.toggle('open');
+    });
+
+    /* Ambient Canvas Particle Background Animation */
+    (function initAmbientCanvas() {
+      const canvas = document.getElementById('ambient-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let particles = [];
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.radius = Math.random() * 3 + 0.8;
+          this.vy = -(Math.random() * 0.4 + 0.1);
+          this.vx = (Math.random() - 0.5) * 0.2;
+          this.alpha = Math.random() * 0.5 + 0.2;
+          this.color = ['#22d3ee', '#fbbf24', '#34d399', '#a855f7'][Math.floor(Math.random() * 4)];
+        }
+        update() {
+          this.y += this.vy;
+          this.x += this.vx;
+          if (this.y < 0) this.reset();
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = this.alpha;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < 45; i++) particles.push(new Particle());
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    /* ---------- FLIPBOOK STORYBOOK LOGIC (2-PAGE 3D BOOK & TOC MODAL) ---------- */
+    const FLIPBOOK_PAGES_EN = [
+      {
+        page: 1, isCover: true, tag: "MEDHAVATIKA STORYBOOK", title: "Medha's Algebra Adventure",
+        body: `<div style="text-align:center; padding: 20px 0;">
+          <div style="font-size: 54px; margin-bottom: 12px;">📘✨</div>
+          <h3 style="font-size: 1.5rem; color: #fef08a; margin-bottom: 8px;">Algebra Tile Quest</h3>
+          <p style="color: #cbd5e1; font-size: 0.95rem; max-width: 320px; margin: 0 auto 16px;">
+            Join Medha and her wise Owl guide as they step into the Tile Workshop to master Grade 8 expressions &amp; identities!
+          </p>
+          <span style="display:inline-block; background:rgba(245,158,11,0.2); border:1px solid #f59e0b; color:#fef08a; padding:4px 14px; border-radius:99px; font-size:0.8rem; font-weight:700;">
+            Grade 8 Mathematics
+          </span>
+        </div>`
+      },
+      {
+        page: 2, tag: "PROLOGUE", title: "The Mystery of the Unknown x",
+        body: `<p>Medha finds a locked chest in the workshop labelled <strong>"x"</strong>. "Owl," Medha asked, "what number is hiding inside?"</p>
+        <div class="fb-dialogue">"Algebra is simply the art of describing an unknown with letters, Medha!" hooted the Owl companion.</div>
+        <p>Instead of guessing a fixed number, we use variables like <em>x</em> and <em>y</em> as flexible placeholders.</p>`
+      },
+      {
+        page: 3, tag: "CHAPTER 1", title: "What Is an Algebraic Expression?",
+        body: `<p>A mix of numbers, letters, and operations — like 3x + 5 — describing a value without ever pinning it down completely.</p>
+        <div class="fb-formula-box">Expression = Term₁ ± Term₂ ± Term₃</div>
+        <p>Variables and constants snap together like building blocks in the MedhaLab™ workshop!</p>`
+      },
+      {
+        page: 4, tag: "CHAPTER 1 · PARTS", title: "Terms, Factors & Coefficients",
+        body: `<p>Every term has a coefficient and variable factors; learning to name each part is the first workshop skill.</p>
+        <div class="fb-dialogue">"In 7x²y, 7 is the numerical coefficient, while x² and y are variable factors!" explained Owl.</div>
+        <p>Recognising factors helps us split, expand, and factorise complex expressions.</p>`
+      },
+      {
+        page: 5, tag: "CHAPTER 1 · TWINS", title: "Like and Unlike Terms",
+        body: `<p>Only terms with identical variables and powers can merge — the Owl calls these "true tile twins".</p>
+        <div class="fb-formula-box">Like: 4xy and −9xy ✓<br>Unlike: 4xy and 4x²y ✗</div>
+        <p>Unlike terms must remain side by side separated by operational signs.</p>`
+      },
+      {
+        page: 6, tag: "CHAPTER 1 · CLASSIFY", title: "Monomial to Polynomial",
+        body: `<p>One term, two terms, three, or more — each count earns the expression a different family name.</p>
+        <p>1 term: <strong>Monomial</strong> (e.g. 5x²)<br>2 terms: <strong>Binomial</strong> (e.g. 3x + 7)<br>3 terms: <strong>Trinomial</strong> (e.g. 2x² − 5x + 9)</p>`
+      },
+      {
+        page: 7, tag: "CHAPTER 2 · COMBINE", title: "Adding & Subtracting Expressions",
+        body: `<p>Sort tiles into matching piles, then add or subtract coefficients — the variable part never moves.</p>
+        <div class="fb-dialogue">"Subtracting a bracket is like returning borrowed tiles — flip every sign inside first!" noted Medhā.</div>`
+      },
+      {
+        page: 8, tag: "CHAPTER 3 · AREA", title: "Multiplying: The Area Model",
+        body: `<p>Medha discovers that multiplying two brackets is the same as tiling a rectangle into four smaller regions.</p>
+        <div class="fb-formula-box">(p+q)(r+s) = pr + ps + qr + qs</div>
+        <p>Four partial products add up to the total rectangular area.</p>`
+      },
+      {
+        page: 9, tag: "CHAPTER 4 · IDENTITY 1", title: "Unlocking (a+b)²",
+        body: `<p>A big square of side (a+b) splits perfectly into a², two matching ab rectangles, and b² — the sum-square identity revealed.</p>
+        <div class="fb-formula-box">(a+b)² = a² + 2ab + b²</div>`
+      },
+      {
+        page: 10, tag: "CHAPTER 4 · IDENTITIES 2 & 3", title: "Unlocking (a−b)² and a²−b²",
+        body: `<p>Cutting corners from squares reveals two more master identities, each provable with nothing but geometry.</p>
+        <div class="fb-formula-box">(a−b)² = a² − 2ab + b²<br>(a+b)(a−b) = a² − b²</div>`
+      },
+      {
+        page: 11, tag: "CHAPTER 5 · FACTORS", title: "Factorisation: Undoing Multiplication",
+        body: `<p>The Owl teaches Medha to run multiplication backwards — turning a trinomial back into its two original brackets.</p>
+        <div class="fb-dialogue">"Find two numbers whose product is c and sum is b!" hooted Owl.</div>`
+      },
+      {
+        page: 12, tag: "APPLICATIONS", title: "Algebra in the Real World",
+        body: `<p>From coding game physics to architectural load calculations to mental math shortcuts, expressions quietly power the world.</p>`
+      },
+      {
+        page: 13, isCover: true, tag: "QUEST COMPLETE", title: "Quest Mastery Certificate",
+        body: `<div style="text-align:center; padding: 20px 0;">
+          <div style="font-size: 48px; margin-bottom: 8px;">🏆🧩</div>
+          <h3 style="font-size: 1.35rem; color: #6ee7b7; margin-bottom: 6px;">Algebra Master Certified!</h3>
+          <p style="color: #cbd5e1; font-size: 0.88rem; max-width: 320px; margin: 0 auto 12px;">
+            You have successfully mastered Grade 8 Algebra Tile Quest with Medhā &amp; MedhāVatika!
+          </p>
+          <a href="#ch1" style="display:inline-block; background:linear-gradient(135deg,#10b981,#06b6d4); color:#fff; font-weight:700; padding:8px 18px; border-radius:99px; font-size:0.85rem;">
+            Explore Tile Simulations ⟶
+          </a>
+        </div>`
+      }
+    ];
+
+    let currentFlipPage = 1;
+    let isFlipping = false;
+    let zoomLevel = 1;
+
+    function initFlipbookEngine() {
+      const pageInput = document.getElementById('fb-page-num');
+      const btnPrev = document.getElementById('fb-prev');
+      const btnNext = document.getElementById('fb-next');
+      const btnFirst = document.getElementById('fb-first');
+      const btnLast = document.getElementById('fb-last');
+      const btnToc = document.getElementById('fb-toc-btn');
+      const tocModal = document.getElementById('toc-modal');
+      const btnZoomIn = document.getElementById('fb-zoom-in');
+      const btnZoomOut = document.getElementById('fb-zoom-out');
+      const btnFullscreen = document.getElementById('fb-fullscreen');
+      const fbContainer = document.getElementById('flipbook-container');
+      const sheet = document.getElementById('flipbook-sheet');
+      const leftEl = document.getElementById('fb-page-left');
+      const rightEl = document.getElementById('fb-page-right');
+
+      function getPageHTML(pageData, side = 'left') {
+        if (!pageData) {
+          return `<div style="text-align:center; padding: 80px 20px; color:#94a3b8;">End of Storybook</div>`;
+        }
+        if (pageData.isCover) return pageData.body;
+        const hintHTML = side === 'left' 
+          ? `<span class="fb-corner-hint">◀ Prev</span>`
+          : `<span class="fb-corner-hint">Next ▶</span>`;
+
+        return `
+          <div class="fb-page-header">
+            <span>${pageData.tag}</span>
+            <h4>${pageData.title}</h4>
+          </div>
+          <div class="fb-page-body">${pageData.body}</div>
+          <div class="fb-page-num">Page ${pageData.page}</div>
+          ${hintHTML}
+        `;
+      }
+
+      function applyPageToElement(el, pageData, side = 'left') {
+        if (!el) return;
+        if (!pageData) {
+          el.className = `fb-page ${side}`;
+          el.innerHTML = getPageHTML(null, side);
+          return;
+        }
+        el.className = pageData.isCover ? `fb-page ${side} fb-cover-page` : `fb-page ${side}`;
+        el.innerHTML = getPageHTML(pageData, side);
+      }
+
+      function turnToPage(pageNum, animate = true) {
+        pageNum = Math.max(1, Math.min(13, pageNum));
+        const oldPage = currentFlipPage;
+        
+        if (sheet) {
+          const existingLeaf = sheet.querySelector('.fb-flipping-leaf');
+          if (existingLeaf) existingLeaf.remove();
+        }
+
+        if (pageNum === oldPage && animate) return;
+
+        const newLeftData = FLIPBOOK_PAGES_EN[pageNum - 1];
+        const newRightData = pageNum < 13 ? FLIPBOOK_PAGES_EN[pageNum] : null;
+
+        currentFlipPage = pageNum;
+        if (pageInput) pageInput.value = pageNum;
+
+        const canAnimate3D = animate && sheet && window.innerWidth > 860;
+
+        if (!canAnimate3D) {
+          applyPageToElement(leftEl, newLeftData, 'left');
+          applyPageToElement(rightEl, newRightData, 'right');
+          isFlipping = false;
+          return;
+        }
+
+        const isForward = pageNum > oldPage;
+        const oldLeftData = FLIPBOOK_PAGES_EN[oldPage - 1];
+        const oldRightData = oldPage < 13 ? FLIPBOOK_PAGES_EN[oldPage] : null;
+
+        isFlipping = true;
+
+        if (isForward) {
+          applyPageToElement(rightEl, newRightData, 'right');
+          const leaf = document.createElement('div');
+          leaf.className = 'fb-flipping-leaf flip-forward';
+          leaf.innerHTML = `
+            <div class="fb-leaf-face fb-leaf-front ${oldRightData && oldRightData.isCover ? 'fb-cover-page' : ''}">
+              ${getPageHTML(oldRightData, 'right')}
+            </div>
+            <div class="fb-leaf-face fb-leaf-back ${newLeftData && newLeftData.isCover ? 'fb-cover-page' : ''}">
+              ${getPageHTML(newLeftData, 'left')}
+            </div>
+            <div class="fb-leaf-shadow"></div>
+          `;
+          sheet.appendChild(leaf);
+          setTimeout(() => {
+            applyPageToElement(leftEl, newLeftData, 'left');
+            if (leaf.parentNode) leaf.parentNode.removeChild(leaf);
+            isFlipping = false;
+          }, 580);
+        } else {
+          applyPageToElement(leftEl, newLeftData, 'left');
+          const leaf = document.createElement('div');
+          leaf.className = 'fb-flipping-leaf flip-backward';
+          leaf.innerHTML = `
+            <div class="fb-leaf-face fb-leaf-front ${oldLeftData && oldLeftData.isCover ? 'fb-cover-page' : ''}">
+              ${getPageHTML(oldLeftData, 'left')}
+            </div>
+            <div class="fb-leaf-face fb-leaf-back ${newRightData && newRightData.isCover ? 'fb-cover-page' : ''}">
+              ${getPageHTML(newRightData, 'right')}
+            </div>
+            <div class="fb-leaf-shadow"></div>
+          `;
+          sheet.appendChild(leaf);
+          setTimeout(() => {
+            applyPageToElement(rightEl, newRightData, 'right');
+            if (leaf.parentNode) leaf.parentNode.removeChild(leaf);
+            isFlipping = false;
+          }, 580);
+        }
+      }
+
+      if (rightEl) {
+        rightEl.addEventListener('click', (e) => {
+          if (e.target.closest('a, button, select, input')) return;
+          if (currentFlipPage < 13) turnToPage(currentFlipPage + (currentFlipPage === 1 ? 1 : 2), true);
+        });
+      }
+      if (leftEl) {
+        leftEl.addEventListener('click', (e) => {
+          if (e.target.closest('a, button, select, input')) return;
+          if (currentFlipPage > 1) turnToPage(Math.max(1, currentFlipPage - 2), true);
+        });
+      }
+
+      if (btnPrev) btnPrev.addEventListener('click', () => turnToPage(Math.max(1, currentFlipPage - 2), true));
+      if (btnNext) btnNext.addEventListener('click', () => turnToPage(Math.min(13, currentFlipPage + (currentFlipPage === 1 ? 1 : 2)), true));
+      if (btnFirst) btnFirst.addEventListener('click', () => turnToPage(1, true));
+      if (btnLast) btnLast.addEventListener('click', () => turnToPage(13, true));
+
+      if (pageInput) {
+        pageInput.addEventListener('change', (e) => {
+          const val = parseInt(e.target.value, 10);
+          if (!isNaN(val)) turnToPage(val, true);
+        });
+      }
+
+      if (btnToc && tocModal) {
+        btnToc.addEventListener('click', (e) => {
+          e.stopPropagation();
+          tocModal.classList.toggle('open');
+        });
+        document.querySelectorAll('.toc-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const p = parseInt(item.getAttribute('data-page'), 10);
+            if (!isNaN(p)) turnToPage(p, true);
+            tocModal.classList.remove('open');
+          });
+        });
+        document.addEventListener('click', (e) => {
+          if (!tocModal.contains(e.target) && e.target !== btnToc) tocModal.classList.remove('open');
+        });
+      }
+
+      if (btnZoomIn) btnZoomIn.addEventListener('click', () => {
+        zoomLevel = Math.min(1.25, zoomLevel + 0.1);
+        if (sheet) sheet.style.transform = `scale(${zoomLevel})`;
+      });
+      if (btnZoomOut) btnZoomOut.addEventListener('click', () => {
+        zoomLevel = Math.max(0.85, zoomLevel - 0.1);
+        if (sheet) sheet.style.transform = `scale(${zoomLevel})`;
+      });
+      if (btnFullscreen) btnFullscreen.addEventListener('click', () => {
+        zoomLevel = 1;
+        if (sheet) sheet.style.transform = 'scale(1)';
+        if (!document.fullscreenElement) {
+          if (fbContainer.requestFullscreen) fbContainer.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) document.exitFullscreen();
+        }
+      });
+
+      turnToPage(1, false);
+    }
+    initFlipbookEngine();
+
+    /* ---------- STAGE 1 LOGIC ---------- */
+    function fmtTerm(coef, variable, exp){
+      if(coef===0) return '0';
+      let varPart = '';
+      if(variable){ 
+        const superScript = exp===2 ? '²' : exp===3 ? '³' : '^'+exp;
+        varPart = exp>1 ? variable+superScript : variable; 
+      }
+      const c = (variable ? (coef===1?'':coef===-1?'-':coef) : coef);
+      return `${c}${varPart}`;
+    }
+    function s1update(){
+      const aCoef=+s1aCoef.value, aVar=s1aVar.value, aExp=+s1aExp.value;
+      const bCoef=+s1bCoef.value, bVar=s1bVar.value, bExp=+s1bExp.value;
+      s1aCoefVal.textContent=aCoef; s1aExpVal.textContent=aExp;
+      s1bCoefVal.textContent=bCoef; s1bExpVal.textContent=bExp;
+      s1aExp.disabled = !aVar; s1bExp.disabled = !bVar;
+      const aStr = fmtTerm(aCoef,aVar,aExp), bStr = fmtTerm(bCoef,bVar,bExp);
+      s1aOut.textContent = aStr; s1bOut.textContent = bStr;
+      const like = (aVar===bVar) && (aVar===''? true : aExp===bExp);
+      s1badge.textContent = like ? 'Yes' : 'No';
+      s1badge.className = 'badge-pill ' + (like?'yes':'no');
+      if(like){
+        const sum = aCoef+bCoef;
+        s1combined.textContent = `Combined: ${fmtTerm(sum,aVar,aExp)}`;
+      } else {
+        s1combined.textContent = 'Cannot combine — unlike terms';
+      }
+    }
+    ['s1aCoef','s1aVar','s1aExp','s1bCoef','s1bVar','s1bExp'].forEach(id=>{
+      document.getElementById(id).addEventListener('input', s1update);
+      document.getElementById(id).addEventListener('change', s1update);
+    });
+    s1update();
+
+    const s1classes = {1:['Monomial','5x²'],2:['Binomial','3x + 7'],3:['Trinomial','2x² − 5x + 9'],4:['Polynomial (4+ terms)','4x³ + 2x² − x + 6']};
+    function s1nUpdate(){
+      const n = +s1n.value; s1nVal.textContent = n;
+      const [name, ex] = s1classes[n];
+      s1className.textContent = name; s1example.textContent = ex;
+    }
+    s1n.addEventListener('input', s1nUpdate); s1nUpdate();
+
+    /* ---------- STAGE 2 LOGIC ---------- */
+    let s2op = '+';
+    function s2SetOp(op, el){
+      s2op = op;
+      [...document.querySelectorAll('#ch2 .chip-btn')].forEach(c=>c.classList.remove('active'));
+      el.classList.add('active');
+      s2update();
+    }
+    function fmtLinear(x,y){
+      const xs = x===0?'':`${x===1?'':x===-1?'-':x}x`;
+      let ys = '';
+      if (y !== 0) {
+        if (x !== 0) {
+          ys = y > 0 ? ` + ${y===1?'':y}y` : ` − ${Math.abs(y)===1?'':Math.abs(y)}y`;
+        } else {
+          ys = y < 0 ? `−${Math.abs(y)===1?'':Math.abs(y)}y` : `${y===1?'':y}y`;
+        }
+      }
+      let out = xs+ys;
+      if(!out) out='0';
+      if(out.startsWith('+ ')) out = out.slice(2);
+      return out;
+    }
+    function s2update(){
+      const a=+s2a.value,b=+s2b.value,c=+s2c.value,d=+s2d.value;
+      s2aVal.textContent=a; s2bVal.textContent=b; s2cVal.textContent=c; s2dVal.textContent=d;
+      s2expr1.textContent = fmtLinear(a,b);
+      s2expr2.textContent = fmtLinear(c,d);
+      s2opSym.textContent = s2op;
+      let rx,ry;
+      if(s2op==='+'){ rx=a+c; ry=b+d; } else { rx=a-c; ry=b-d; }
+      s2result.textContent = fmtLinear(rx,ry);
+
+      const barX = document.getElementById('s2barX'), barY = document.getElementById('s2barY');
+      const hx = Math.min(105, Math.abs(rx)*6)+14, hy = Math.min(105, Math.abs(ry)*6)+14;
+      barX.style.height = hx+'px'; barY.style.height = hy+'px';
+      barX.style.background = rx>=0 ? 'var(--cyan-glow)' : 'var(--coral-accent)';
+      barY.style.background = ry>=0 ? 'var(--teal-glow)' : 'var(--coral-accent)';
+      barX.innerHTML = `<span style="display:block; padding-top:4px; font-size:.85rem; font-weight:800; color:#ffffff; text-shadow:0 1px 3px rgba(0,0,0,0.85);">${rx===0?'0':rx+'x'}</span>`;
+      barY.innerHTML = `<span style="display:block; padding-top:4px; font-size:.85rem; font-weight:800; color:#ffffff; text-shadow:0 1px 3px rgba(0,0,0,0.85);">${ry===0?'0':ry+'y'}</span>`;
+    }
+    ['s2a','s2b','s2c','s2d'].forEach(id=>document.getElementById(id).addEventListener('input', s2update));
+    s2update();
+
+    /* ---------- STAGE 3 LOGIC ---------- */
+    function s3render(){
+      const p=+s3p.value, q=+s3q.value, r=+s3r.value, s=+s3s.value;
+      s3pVal.textContent=p; s3qVal.textContent=q; s3rVal.textContent=r; s3sVal.textContent=s;
+      const unit = 13, ox=45, oy=35;
+      const pr=p*r, ps=p*s, qr=q*r, qs=q*s, total=(p+q)*(r+s);
+      const svg = document.getElementById('s3svg');
+      
+      const neededWidth = Math.max(340, ox + (p+q)*unit + 35);
+      const neededHeight = Math.max(250, oy + (r+s)*unit + 35);
+      svg.setAttribute('viewBox', `0 0 ${neededWidth} ${neededHeight}`);
+
+      svg.innerHTML = `
+        <rect x="${ox}" y="${oy}" width="${p*unit}" height="${r*unit}" fill="#10b981" rx="5"></rect>
+        <rect x="${ox+p*unit}" y="${oy}" width="${q*unit}" height="${r*unit}" fill="#f59e0b" rx="5"></rect>
+        <rect x="${ox}" y="${oy+r*unit}" width="${p*unit}" height="${s*unit}" fill="#f59e0b" opacity=".8" rx="5"></rect>
+        <rect x="${ox+p*unit}" y="${oy+r*unit}" width="${q*unit}" height="${s*unit}" fill="#f43f5e" rx="5"></rect>
+        <text x="${ox+p*unit/2}" y="${oy+r*unit/2+5}" text-anchor="middle" font-size="14" fill="#ffffff" font-family="JetBrains Mono" font-weight="800">pr=${pr}</text>
+        <text x="${ox+p*unit+q*unit/2}" y="${oy+r*unit/2+5}" text-anchor="middle" font-size="14" fill="#ef4444" font-family="JetBrains Mono" font-weight="800">qr=${qr}</text>
+        <text x="${ox+p*unit/2}" y="${oy+r*unit+s*unit/2+5}" text-anchor="middle" font-size="14" fill="#ef4444" font-family="JetBrains Mono" font-weight="800">ps=${ps}</text>
+        <text x="${ox+p*unit+q*unit/2}" y="${oy+r*unit+s*unit/2+5}" text-anchor="middle" font-size="14" fill="#ffffff" font-family="JetBrains Mono" font-weight="800">qs=${qs}</text>
+        <text x="${ox+p*unit/2}" y="${oy-12}" text-anchor="middle" font-size="14" fill="#22d3ee" font-family="JetBrains Mono" font-weight="700">p=${p}</text>
+        <text x="${ox+p*unit+q*unit/2}" y="${oy-12}" text-anchor="middle" font-size="14" fill="#22d3ee" font-family="JetBrains Mono" font-weight="700">q=${q}</text>
+        <text x="${ox-16}" y="${oy+r*unit/2}" text-anchor="middle" font-size="14" fill="#22d3ee" font-family="JetBrains Mono" font-weight="700" transform="rotate(-90 ${ox-16} ${oy+r*unit/2})">r=${r}</text>
+        <text x="${ox-16}" y="${oy+r*unit+s*unit/2}" text-anchor="middle" font-size="14" fill="#22d3ee" font-family="JetBrains Mono" font-weight="700" transform="rotate(-90 ${ox-16} ${oy+r*unit+s*unit/2})">s=${s}</text>
+      `;
+      s3formula.textContent = `(${p}+${q})(${r}+${s}) = ${pr}+${ps}+${qr}+${qs} = ${total}`;
+    }
+    ['s3p','s3q','s3r','s3s'].forEach(id=>document.getElementById(id).addEventListener('input', s3render));
+    function s3Random(){
+      s3p.value = 2+Math.floor(Math.random()*10);
+      s3q.value = 2+Math.floor(Math.random()*10);
+      s3r.value = 2+Math.floor(Math.random()*10);
+      s3s.value = 2+Math.floor(Math.random()*10);
+      s3render();
+    }
+    function s3Reset(){ s3p.value=4; s3q.value=3; s3r.value=5; s3s.value=2; s3render(); }
+    s3render();
+
+    /* ---------- STAGE 4 LOGIC ---------- */
+    let s4mode='sum', s4target=64;
+    function s4calc(mode,a,b){
+      if(mode==='sum') return (a+b)*(a+b);
+      if(mode==='diff') return (a-b)*(a-b);
+      return a*a - b*b;
+    }
+    function s4SetMode(mode, el){
+      s4mode = mode;
+      [...document.querySelectorAll('#ch4 .chip-btn')].forEach(c=>c.classList.remove('active'));
+      el.classList.add('active');
+      s4Random();
+    }
+    function s4draw(a,b){
+      const svg = document.getElementById('s4svg');
+      const unit = 13, ox=35, oy=25;
+      
+      if(s4mode==='diffsq'){
+        const neededW = Math.max(300, ox + a*unit + 40);
+        const neededH = Math.max(220, oy + a*unit + 45);
+        svg.setAttribute('viewBox', `0 0 ${neededW} ${neededH}`);
+        svg.innerHTML = `
+          <rect x="${ox}" y="${oy}" width="${a*unit}" height="${a*unit}" fill="#046bd2" opacity=".65" rx="5"></rect>
+          <rect x="${ox}" y="${oy}" width="${Math.min(b,a)*unit}" height="${Math.min(b,a)*unit}" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" rx="5"></rect>
+          <text x="${ox+a*unit/2}" y="${oy+a*unit+20}" text-anchor="middle" font-size="13" fill="#f8fafc" font-family="JetBrains Mono" font-weight="700">a² region (side a=${a})</text>
+          <text x="${ox+10}" y="${oy+18}" font-size="12" fill="#ef4444" font-family="JetBrains Mono" font-weight="700">cut b²=${b*b}</text>
+          <text x="${ox}" y="${oy+a*unit+38}" font-size="13" fill="#fbbf24" font-family="JetBrains Mono" font-weight="700">a²−b² = ${a*a-b*b}</text>
+        `;
+        return;
+      }
+      
+      if(s4mode==='diff'){
+        // Difference square (a-b)^2 diagram
+        const diff = Math.max(1, a - b);
+        const neededW = Math.max(300, ox + a*unit + 40);
+        const neededH = Math.max(220, oy + a*unit + 45);
+        svg.setAttribute('viewBox', `0 0 ${neededW} ${neededH}`);
+        svg.innerHTML = `
+          <rect x="${ox}" y="${oy}" width="${a*unit}" height="${a*unit}" fill="#0f172a" stroke="#046bd2" stroke-width="2" rx="5"></rect>
+          <rect x="${ox}" y="${oy}" width="${diff*unit}" height="${diff*unit}" fill="#10b981" rx="5"></rect>
+          <rect x="${ox+diff*unit}" y="${oy}" width="${Math.min(b,a)*unit}" height="${diff*unit}" fill="#f59e0b" opacity=".7" rx="5"></rect>
+          <rect x="${ox}" y="${oy+diff*unit}" width="${diff*unit}" height="${Math.min(b,a)*unit}" fill="#f59e0b" opacity=".7" rx="5"></rect>
+          <rect x="${ox+diff*unit}" y="${oy+diff*unit}" width="${Math.min(b,a)*unit}" height="${Math.min(b,a)*unit}" fill="#f43f5e" rx="5"></rect>
+          <text x="${ox+diff*unit/2}" y="${oy+diff*unit/2+4}" text-anchor="middle" font-size="13" fill="#fff" font-family="JetBrains Mono" font-weight="700">(a−b)²=${diff*diff}</text>
+          <text x="${ox}" y="${oy+a*unit+22}" font-size="13" fill="#fbbf24" font-family="JetBrains Mono" font-weight="700">side (a−b) = ${diff} | side a = ${a}</text>
+        `;
+        return;
+      }
+
+      // Sum square (a+b)^2 diagram
+      const big = a+b;
+      const neededW = Math.max(320, ox + big*unit + 35);
+      const neededH = Math.max(240, oy + big*unit + 35);
+      svg.setAttribute('viewBox', `0 0 ${neededW} ${neededH}`);
+      svg.innerHTML = `
+        <rect x="${ox}" y="${oy}" width="${a*unit}" height="${a*unit}" fill="#10b981" rx="5"></rect>
+        <rect x="${ox+a*unit}" y="${oy}" width="${b*unit}" height="${a*unit}" fill="#f59e0b" rx="5"></rect>
+        <rect x="${ox}" y="${oy+a*unit}" width="${a*unit}" height="${b*unit}" fill="#f59e0b" opacity=".8" rx="5"></rect>
+        <rect x="${ox+a*unit}" y="${oy+a*unit}" width="${b*unit}" height="${b*unit}" fill="#f43f5e" rx="5"></rect>
+        <text x="${ox+a*unit/2}" y="${oy+a*unit/2+5}" text-anchor="middle" font-size="13" fill="#ffffff" font-family="JetBrains Mono" font-weight="800">a²=${a*a}</text>
+        <text x="${ox+a*unit+b*unit/2}" y="${oy+a*unit/2+5}" text-anchor="middle" font-size="13" fill="#ef4444" font-family="JetBrains Mono" font-weight="800">ab=${a*b}</text>
+        <text x="${ox+a*unit/2}" y="${oy+a*unit+b*unit/2+5}" text-anchor="middle" font-size="13" fill="#ef4444" font-family="JetBrains Mono" font-weight="800">ab=${a*b}</text>
+        <text x="${ox+a*unit+b*unit/2}" y="${oy+a*unit+b*unit/2+5}" text-anchor="middle" font-size="13" fill="#ffffff" font-family="JetBrains Mono" font-weight="800">b²=${b*b}</text>
+      `;
+    }
+    function s4update(){
+      let a=+s4a.value, b=+s4b.value;
+      if (s4mode === 'diff' || s4mode === 'diffsq') {
+        if (a <= b) {
+          b = Math.max(1, a - 1);
+          s4b.value = b;
+        }
+      }
+      s4aVal.textContent=a; s4bVal.textContent=b;
+      const current = s4calc(s4mode,a,b);
+      s4current.textContent = current;
+      s4target.textContent = s4target;
+      const err = Math.abs(s4target-current);
+      s4error.textContent = err;
+      s4status.textContent = err===0 ? '⭐ Perfect Match!' : (err<=Math.max(2,s4target*0.08) ? '🔥 Very Close' : '🧭 Keep Tuning');
+      s4draw(a,b);
+    }
+    ['s4a','s4b'].forEach(id=>document.getElementById(id).addEventListener('input', s4update));
+    function s4Random(){
+      let ta = 2+Math.floor(Math.random()*7), tb = 1+Math.floor(Math.random()*6);
+      if ((s4mode === 'diff' || s4mode === 'diffsq') && ta <= tb) {
+        ta = tb + 2;
+      }
+      s4target = s4calc(s4mode, ta, tb);
+      let na = 2+Math.floor(Math.random()*8), nb = 1+Math.floor(Math.random()*6);
+      if ((s4mode === 'diff' || s4mode === 'diffsq') && na <= nb) {
+        na = nb + 1;
+      }
+      s4a.value = na; s4b.value = nb;
+      s4update();
+    }
+    function s4Ideal(){
+      s4a.value = 5; s4b.value = 3;
+      s4target = s4calc(s4mode,5,3);
+      s4update();
+    }
+    s4Ideal();
+
+    /* ---------- STAGE 5 LOGIC ---------- */
+    let s5b=7, s5c=12;
+    function fmtFactor(n) {
+      return n >= 0 ? `+ ${n}` : `− ${Math.abs(n)}`;
+    }
+    function s5update(){
+      const m=+s5m.value, n=+s5n.value;
+      s5mVal.textContent=m; s5nVal.textContent=n;
+      
+      const mStr = m >= 0 ? `x + ${m}` : `x − ${Math.abs(m)}`;
+      const nStr = n >= 0 ? `x + ${n}` : `x − ${Math.abs(n)}`;
+      s5mOut.textContent=m >= 0 ? m : `- ${Math.abs(m)}`; 
+      s5nOut.textContent=n >= 0 ? n : `- ${Math.abs(n)}`;
+      
+      const sum=m+n, prod=m*n;
+      s5sumOut.textContent = sum >= 0 ? `${sum}` : `− ${Math.abs(sum)}`;
+      s5prodOut.textContent = prod >= 0 ? `${prod}` : `− ${Math.abs(prod)}`;
+      
+      s5bTarget.textContent = s5b >= 0 ? `${s5b}` : `− ${Math.abs(s5b)}`;
+      s5cTarget.textContent = s5c >= 0 ? `${s5c}` : `− ${Math.abs(s5c)}`;
+      
+      const sumMatch = Math.max(0, 100 - Math.abs(sum-s5b)*20);
+      const prodMatch = Math.max(0, 100 - Math.abs(prod-s5c)*5);
+      s5sumMatch.textContent = sumMatch+'%';
+      s5prodMatch.textContent = prodMatch+'%';
+      const overall = Math.min(sumMatch, prodMatch);
+      s5overall.textContent = overall+'%';
+      s5bottleneck.textContent = overall===100 ? '🎯 Fully Factorised!' : (sumMatch<prodMatch ? `Sum condition (m+n=${s5b})` : `Product condition (m·n=${s5c})`);
+    }
+    ['s5m','s5n'].forEach(id=>document.getElementById(id).addEventListener('input', s5update));
+    function s5Random(){
+      const m0 = 1+Math.floor(Math.random()*8), n0 = 1+Math.floor(Math.random()*8);
+      s5b = m0+n0; s5c = m0*n0;
+      s5m.value = 1; s5n.value = 1;
+      s5update();
+    }
+    function s5Reset(){ s5m.value=2; s5n.value=2; s5update(); }
+    s5update();
+  </script>
+</body>
+</html>
